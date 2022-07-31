@@ -162,3 +162,4 @@ cython_debug/
 
 # File where docker stores data for db
 dbdata/
+front_end

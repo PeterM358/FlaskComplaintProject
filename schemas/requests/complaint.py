@@ -1,5 +1,9 @@
+from marshmallow import fields
+
 from schemas.base import ComplaintBase
 
 
 class ComplaintSchemaRequest(ComplaintBase):
-    pass
+    photo = fields.String(required=True)
+    extension = fields.String(required=True)
+

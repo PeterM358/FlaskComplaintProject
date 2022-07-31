@@ -6,6 +6,7 @@ from managers.complaint import ComplaintManager
 from models import UserRole
 from schemas.requests.complaint import ComplaintSchemaRequest
 from schemas.responses.complaint import ComplaintSchemaResponse
+from services.s3 import S3Service
 from utils.decorators import permission_required, validate_schema
 
 
@@ -38,3 +39,14 @@ class RejectComplaintResource(Resource):
     def put(self, id):
         ComplaintManager.reject(id)
         return 204
+
+
+class DeletePhotoResource(Resource):
+    @staticmethod
+    @auth.login_required()
+    def post():
+        data = request.get_json()
+        photo_name = data["key"]
+        s3 = S3Service()
+        s3.delete_photo(photo_name)
+        return 200
